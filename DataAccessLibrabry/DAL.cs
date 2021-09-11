@@ -21,9 +21,11 @@ namespace DataAccessLibrabry
                 Console.WriteLine("==================================================================================================================================================================================================================");
                 Console.WriteLine("*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*Active Restaurants*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*");
                 Console.WriteLine("==================================================================================================================================================================================================================");
+                //Console.WriteLine("     Restaurant Name     |       Restaurant Address      | Restaurant Phone Number | Restaurant Cusine ");
+                //Console.WriteLine("-------------------------------------------------------------------------------------------------------");
                 foreach (DataRow row in DT.Rows)
                 {
-                    Console.WriteLine(" \t| " + row["RestName"].ToString() + " |\t| " + row["RestAdreess"].ToString() + " |\t| " + row["RestPhoneNo"].ToString() + " |\t| " + row["RestCuisine"].ToString() + " |\t ");
+                    Console.WriteLine("{0,-30} | {1,-30} | {2,10} | {3,-10} ",row["RestName"].ToString() , row["RestAdreess"].ToString() , row["RestPhoneNo"].ToString() , row["RestCuisine"].ToString());
                     Console.WriteLine();
                 }
                 Console.WriteLine("==================================================================================================================================================================================================================="+Environment.NewLine);
@@ -44,9 +46,10 @@ namespace DataAccessLibrabry
                 Console.WriteLine("===================================================================================================================================================================================================================");
                 Console.WriteLine("*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*List of Restaurants*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*");
                 Console.WriteLine("===================================================================================================================================================================================================================");
+                //Console.WriteLine(" Restaurant ID |     Restaurant Name     |     Restaurant Adress     | Restaurent PhoneNo. | Restaurant Opeming Time | Restaurant Closing Time | Restaurant Cusine | Restaurant Status ");
                 foreach (DataRow row in DT.Rows)
                 {
-                    Console.WriteLine(" \t| " + row["RestId"].ToString() + " |\t| " + row["RestName"].ToString() + " |\t| " + row["RestAdreess"].ToString() + " |\t| " + row["RestPhoneNo"].ToString() + " |\t| " + row["RestOpeningTime"].ToString() + " |\t| " + row["RestClosingTime"].ToString() + " |\t| " + row["RestCuisine"].ToString() + " |     | " + row["RestStatus"].ToString() + " |\t ");
+                    Console.WriteLine(" {0,6} | {1,-30} | {2,-30} | {3,12} | {4,-8} | {5,-8} | {6,-10} | {7,-10} ",row["RestId"].ToString() , row["RestName"].ToString() , row["RestAdreess"].ToString() , row["RestPhoneNo"].ToString() , row["RestOpeningTime"].ToString() , row["RestClosingTime"].ToString() , row["RestCuisine"].ToString() , row["RestStatus"].ToString());
                     Console.WriteLine();
                 }
                 Console.WriteLine("====================================================================================================================================================================================================================" + Environment.NewLine);
@@ -334,6 +337,9 @@ namespace DataAccessLibrabry
         public void ActivateDeactivateRestaurant(Restaurant restaurant)
         {
             ExecuteCommand(String.Format("Update Restaurant set RestStatus='{1}' where RestId={0}", restaurant.RestId,restaurant.RestStatus));
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Restaurant has been {0}d in your list.",restaurant.RestStatus);
         }
         public bool ExecuteCommand(string queury)
         {
@@ -366,7 +372,8 @@ namespace DataAccessLibrabry
             RestId = Convert.ToInt32(Console.ReadLine());
 
             ExecuteCommand(String.Format("Delete from Restaurant where RestId = '{0}'", RestId));
-
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Restaurant SuccessFully Deleted from RSystem!!!!" + Environment.NewLine);
         }
 
