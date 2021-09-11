@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -11,6 +11,9 @@
   <ItemGroup>
     <Reference Include="Model">
       <HintPath>..\Model\bin\Debug\net5.0\Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\Validation\bin\Debug\net5.0\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
 

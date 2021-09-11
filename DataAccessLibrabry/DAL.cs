@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using Model;
+//using Validation;
 
 
 namespace DataAccessLibrabry
@@ -16,14 +18,15 @@ namespace DataAccessLibrabry
             if (DT.Rows.Count > 0)
             {
                 Console.Write(Environment.NewLine);
-                Console.WriteLine("======================================================================");
-                Console.WriteLine("**************************Active Restaurants**************************");
-                Console.WriteLine("======================================================================");
+                Console.WriteLine("==================================================================================================================================================================================================================");
+                Console.WriteLine("*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*Active Restaurants*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*");
+                Console.WriteLine("==================================================================================================================================================================================================================");
                 foreach (DataRow row in DT.Rows)
                 {
-                    Console.WriteLine(row["RestName"].ToString() + " " + row["RestAdreess"].ToString() + " " + row["RestPhoneNo"].ToString() + " " + row["RestCuisine"].ToString());
+                    Console.WriteLine(" \t| " + row["RestName"].ToString() + " |\t| " + row["RestAdreess"].ToString() + " |\t| " + row["RestPhoneNo"].ToString() + " |\t| " + row["RestCuisine"].ToString() + " |\t ");
+                    Console.WriteLine();
                 }
-                Console.WriteLine("======================================================================" + Environment.NewLine);
+                Console.WriteLine("==================================================================================================================================================================================================================="+Environment.NewLine);
             }
             else
             {
@@ -38,14 +41,15 @@ namespace DataAccessLibrabry
             if (DT.Rows.Count > 0)
             {
                 Console.Write(Environment.NewLine);
-                Console.WriteLine("=====================================================================");
-                Console.WriteLine("*************************List of Restaurants*************************");
-                Console.WriteLine("=====================================================================");
+                Console.WriteLine("===================================================================================================================================================================================================================");
+                Console.WriteLine("*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*List of Restaurants*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*");
+                Console.WriteLine("===================================================================================================================================================================================================================");
                 foreach (DataRow row in DT.Rows)
                 {
-                    Console.WriteLine(row["RestId"].ToString() + " " + row["RestName"].ToString() + " " + row["RestAdreess"].ToString() + " " + row["RestPhoneNo"].ToString() + " " + row["RestOpeningTime"].ToString() + " " + row["RestClosingTime"].ToString() + " " + row["RestCuisine"].ToString() + " " + row["RestStatus"].ToString());
+                    Console.WriteLine(" \t| " + row["RestId"].ToString() + " |\t| " + row["RestName"].ToString() + " |\t| " + row["RestAdreess"].ToString() + " |\t| " + row["RestPhoneNo"].ToString() + " |\t| " + row["RestOpeningTime"].ToString() + " |\t| " + row["RestClosingTime"].ToString() + " |\t| " + row["RestCuisine"].ToString() + " |     | " + row["RestStatus"].ToString() + " |\t ");
+                    Console.WriteLine();
                 }
-                Console.WriteLine("======================================================================" + Environment.NewLine);
+                Console.WriteLine("====================================================================================================================================================================================================================" + Environment.NewLine);
             }
             else
             {
@@ -75,124 +79,296 @@ namespace DataAccessLibrabry
             }
             return result;
         }
-        //public void SearchRestaurant(Restaurant rest)
-        //{
-        //    string RestName = string.Empty;
+        public void SearchRestaurant()
+        {
+            string RestName = string.Empty;
 
-        //    Console.Write("Search Restaurant: ");
-        //    RestName = Console.ReadLine();
+            Console.Write("Search Restaurant: ");
+            RestName = Console.ReadLine();
 
-        //    DataTable DT = ExecuteCommand("select {0},{1},{2},{3},{4},{5} from Restaurant where RestName='{0}'", rest.RestName, rest.RestAdress, rest.RestPhoneNo, rest.RestOpeningTime, rest.RestClosingTime, rest.RestCuisine);
-        //    if (DT.Rows.Count > 0)
-        //    {
-        //        Console.Write(Environment.NewLine);
-        //        Console.WriteLine("======================================================================");
-        //        Console.WriteLine("*************************Searched Restaurants*************************");
-        //        Console.WriteLine("======================================================================");
-        //        foreach (DataRow row in DT.Rows)
-        //        {
-        //            Console.WriteLine(row["RestName"].ToString() + " " + row["RestAdreess"].ToString() + " " + row["RestPhoneNo"].ToString() + " " + row["RestCuisine"].ToString());
-        //        }
-        //        Console.WriteLine("======================================================================" + Environment.NewLine);
-        //    }
-        //    else
-        //    {
-        //        Console.Write(Environment.NewLine);
-        //        Console.WriteLine("!!!There Is NO Active Restarant!!!");
-        //        Console.Write(Environment.NewLine);
-        //    }
-        //}
-        //public Restaurant GetRestaurant()
-        //{
-        //    string RestId = string.Empty;
-        //    string RestName = string.Empty;
-        //    string RestAdress = string.Empty;
-        //    string RestPhoneNo = string.Empty;
-        //    string RestOpeningTime = string.Empty;
-        //    string RestClosingTime = string.Empty;
-        //    string RestCuisine = string.Empty;
-        //    string RestStatus = string.Empty;
+            DataTable DT = ExecuteData("select RestName, RestAdreess, RestPhoneNo, RestOpeningTime, RestClosingTime, RestCuisine from Restaurant where RestName='"+RestName+"'");
+            if (DT.Rows.Count > 0)
+            {
+                Console.Write(Environment.NewLine);
+                Console.WriteLine("===================================================================================================================================================================================================================");
+                Console.WriteLine("*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*Searched Restaurant*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*");
+                Console.WriteLine("===================================================================================================================================================================================================================");
+                foreach (DataRow row in DT.Rows)
+                {
+                    Console.WriteLine(row["RestName"].ToString() + "\t|\t" + row["RestAdreess"].ToString() + "\t|\t" + row["RestPhoneNo"].ToString() + "\t|\t" + row["RestCuisine"].ToString());
+                    Console.WriteLine();
+                }
+                Console.WriteLine("===================================================================================================================================================================================================================" + Environment.NewLine);
+            }
+            else
+            {
+                Console.Write(Environment.NewLine);
+                Console.WriteLine("!!!"+RestName+" not found!!!");
+                Console.Write(Environment.NewLine);
+            }
+        }
+        public Restaurant GetRestaurant()
+        {
+            int RestId = 0;
+            string RestName = string.Empty;
+            string RestAdress = string.Empty;
+            long RestPhoneNo;
+            string RestOpeningTime = string.Empty;
+            string RestClosingTime = string.Empty;
+            string RestCuisine = string.Empty;
+            string RestStatus = string.Empty;
 
-        //    Console.WriteLine("Add New Restaurant: ");
+            //Validate V = new Validate();
 
-        //    Console.Write("Enter Restaurant Id: ");
-        //    RestId = Console.ReadLine();
+            Console.Write("Enter Restaurant ID(Restaurant ID must me number only): ");
+            RestId = Convert.ToInt32(Console.ReadLine());
+            
+            while (true)
+            {
+                Console.Write("Enter Restaurant Name(Do not use special character in Restaurant Name.): ");
+                RestName = Console.ReadLine();
 
-        //    Console.Write("Enter Restaurant Name: ");
-        //    RestName = Console.ReadLine();
+                if (Regex.IsMatch(RestName, "^[a-zA-Z0-9 ]*$"))
+                {
+                        break;
+                }
+                else
+                {
+                        Console.WriteLine("Enter Restaurant Without Special Characters...");
+                        continue;
+                }
+            }
+            
+            Console.Write("Enter Adress of Restaurant: ");
+            RestAdress = Console.ReadLine();
+            while (string.IsNullOrEmpty(RestAdress))
+            {
+                Console.WriteLine("Please ent Adress of Restaurant... ");
+                Console.WriteLine();
+                Console.Write("Enter Adress of Restaurant: ");
+                RestAdress = Console.ReadLine();
+            }
+            while (true)
+            {
+                Console.Write("Enter Phone number of Restaurant: ");
+                RestPhoneNo = Convert.ToInt64(Console.ReadLine());
+                bool check = isValidMobileNumber(RestPhoneNo);
 
-        //    Console.Write("Enter Adress of Restaurant: ");
-        //    RestAdress = Console.ReadLine();
 
-        //    Console.Write("Enter contact of Restaurant: ");
-        //    RestPhoneNo = Console.ReadLine();
+                if (check == true)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Length of Phone number must be 10!!!");
+                    continue;
+                }
 
-        //    Console.Write("Enter opening time of Restaurant as per 24 Hr Clock(HH:MM:SS): ");
-        //    RestOpeningTime = Console.ReadLine();
+            }
+            while (true)
+                {
+                    Console.Write("Enter opening time of Restaurant as per 24 Hr Clock(HH:MM): ");
+                    RestOpeningTime = Console.ReadLine();
+                    bool status = isValidTime(RestOpeningTime);
+                    if (status == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter Opening Time as per the 24 Hrs clock...");
+                        continue;
+                    }
+                }
+            
+            while (string.IsNullOrEmpty(RestClosingTime))
+            {
+                while (true)
+                {
+                    Console.Write("Enter closing time of Restaurant as per 24 Hr Clock(HH:MM): ");
+                    RestClosingTime = Console.ReadLine();
+                    bool status = isValidTime(RestClosingTime);
+                    if (status == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter Opening Time as per the 24 Hrs clock...");
+                        continue;
+                    }
+                }
+            }
+            while (string.IsNullOrEmpty(RestCuisine))
+            {
+                while (true)
+                {
+                    Console.Write("Enter Cuisine of Restaurant: ");
+                    RestCuisine = Console.ReadLine();
+                    bool status = isValidInput(RestCuisine);
+                    if (status == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Cuisine Must be from'Indian,Italian,Maxican,Chinese,American'...");
+                        continue;
+                    }
 
-        //    Console.Write("Enter closing time of Restaurant as per 24 Hr Clock(HH:MM:SS): ");
-        //    RestClosingTime = Console.ReadLine();
+                }
+            }
+            
+                //Console.WriteLine("Please Eneter Status of Restaurant!!!");
+                //Console.WriteLine();
+                Console.Write("Enter Activity of Restaurant Active/Deactive: ");
+                RestStatus = Console.ReadLine();
+             
+            Restaurant restaurant = new Restaurant()
+            {
+                RestId = RestId,
+                RestName = RestName,
+                RestAdress = RestAdress,
+                RestPhoneNo = RestPhoneNo,
+                RestOpeningTime = RestOpeningTime,
+                RestClosingTime = RestClosingTime,
+                RestCuisine = RestCuisine,
+                RestStatus = RestStatus,
+            };
+            return restaurant;
+        }
+        public bool isValidMobileNumber(long inputMobileNumber)
+        {
+            string strRegex = @"(^[0-9]{10}$)|(^\+[0-9]{2}\s+[0-9] {2}[0-9]{8}$)|(^[0-9]{3}-[0-9]{4}-[0-9]{4}$)";
 
-        //    Console.Write("Enter Cuisine of Restaurant: ");
-        //    RestCuisine = Console.ReadLine();
 
-        //    Console.Write("Enter Activity of Restaurant Active/Deactive: ");
-        //    RestStatus = Console.ReadLine();
+            Regex re = new Regex(strRegex);
 
-        //    Restaurant restaurant = new Restaurant()
-        //    {
-        //        RestId = RestId,
-        //        RestName = RestName,
-        //        RestAdress = RestAdress,
-        //        RestPhoneNo = RestPhoneNo,
-        //        RestOpeningTime = RestOpeningTime,
-        //        RestClosingTime = RestClosingTime,
-        //        RestCuisine = RestCuisine,
-        //        RestStatus = RestStatus,
-        //    };
-        //    return restaurant;
-        //}
-        //public void AddRestaurnat(Restaurant restaurant)
-        //{
-        //    ExecuteCommand(String.Format("Insert into Restaurant(RestId,RestName,RestPhoneNo,RestAdreess,RestOpeningTime,RestClosingTime,RestCuisine,RestStatus) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", restaurant.RestId, restaurant.RestName, restaurant.RestAdress, restaurant.RestPhoneNo, restaurant.RestOpeningTime, restaurant.RestClosingTime, restaurant.RestCuisine, restaurant.RestStatus));
-        //}
-        //public void UpdateRestaurant(Restaurant restaurant)
-        //{
-        //    ExecuteCommand(String.Format("Update Restaurant set RestId='{0}', RestName='{1}', RestAdress='{2}', RestPhoneNo='{3}', RestOpeningTime='{4}', RestClosingTime='{5}', RestCuisine='{6}', RestStatus='{7}' wher RestId={0}", restaurant.RestId, restaurant.RestName, restaurant.RestAdress, restaurant.RestPhoneNo, restaurant.RestOpeningTime, restaurant.RestClosingTime, restaurant.RestCuisine, restaurant.RestStatus));
-        //}
-        //public void DeleteRestaurant()
-        //{
-        //    string RestId = string.Empty;
 
-        //    Console.WriteLine("Delet Existing EMPLOYEE: ");
+            if (re.IsMatch(Convert.ToString(inputMobileNumber)))
+            {
+                return (true);
+            }
 
-        //    Console.Write("Enter Empno: ");
-        //    RestId = Console.ReadLine();
+            else
+            {
+                return (false);
+            }
 
-        //    ExecuteCommand(String.Format("Delete from emp where eno = '{0}'", RestId));
+        }
+        public bool isValidInput(string str)
+        {
+            string strRegex = "Indian";
+            string strRegex2 = "Italian";
+            string strRegex3 = "Chinese";
+            string strRegex4 = "Maxican";
+            string strRegex5 = "American";
 
-        //    Console.WriteLine("Employee details deleted from the database!" + Environment.NewLine);
-        //}
-        //public bool ExecuteCommand(string queury)
-        //{
-        //    try
-        //    {
-        //        using (SqlConnection sqlcon = new SqlConnection(constr))
-        //        {
-        //            sqlcon.Open();
-        //            SqlCommand cmd = new SqlCommand(queury, sqlcon);
-        //            cmd.ExecuteNonQuery();
-        //            sqlcon.Close();
+            Regex re = new Regex(strRegex);
+            Regex re1 = new Regex(strRegex2);
+            Regex re2 = new Regex(strRegex3);
+            Regex re3 = new Regex(strRegex4);
+            Regex re4 = new Regex(strRegex5);
+            if (re.IsMatch(str) || re1.IsMatch(str) || re2.IsMatch(str) || re3.IsMatch(str) || re4.IsMatch(str))
+            {
+                return true;
+            }
 
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //        return false;
-        //        throw;
-        //    }
-        //    return true;
-        //}
+            else
+            {
+                return false;
+            }
+        }
+        public bool isValidTime(string str)
+        {
+            string strRegex = "^[0-2][0-3]:[0-5][0-9]$";
+            Regex re = new Regex(strRegex);
+
+
+            if (re.IsMatch(str))
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        public void AddRestaurnat(Restaurant restaurant)
+        {
+            ExecuteCommand(String.Format("Insert into Restaurant(RestId,RestName,RestAdreess,RestPhoneNo,RestOpeningTime,RestClosingTime,RestCuisine,RestStatus) values ({0},'{1}','{2}',{3},'{4}','{5}','{6}','{7}')", restaurant.RestId, restaurant.RestName, restaurant.RestAdress, restaurant.RestPhoneNo, restaurant.RestOpeningTime, restaurant.RestClosingTime, restaurant.RestCuisine, restaurant.RestStatus));
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Restaurant has been added in your list.");
+        }
+        public void UpdateRestaurant(Restaurant restaurant)
+        {
+            ExecuteCommand(String.Format("Update Restaurant set RestId={0}, RestName='{1}', " + "RestAdreess='{2}', RestPhoneNo={3}, RestOpeningTime='{4}', RestClosingTime='{5}', " + "RestCuisine='{6}', RestStatus='{7}' where RestId={0}", restaurant.RestId, restaurant.RestName, restaurant.RestAdress, restaurant.RestPhoneNo, restaurant.RestOpeningTime, restaurant.RestClosingTime, restaurant.RestCuisine, restaurant.RestStatus));
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Restaurant has been update in your list.");
+        }
+        public Restaurant GetInputRestaurant()
+        {
+            int RestId=0;
+            string RestStatus = string.Empty;
+
+            //Console.WriteLine("Add New Restaurant: ");
+
+            Console.Write("Enter Restaurant Id: ");
+            RestId = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter Activity of Restaurant Active/Deactive: ");
+            RestStatus = Console.ReadLine();
+
+            Restaurant restaurant = new Restaurant()
+            {
+                RestId = RestId,
+                RestStatus = RestStatus,
+            };
+            return restaurant;
+        }
+        public void ActivateDeactivateRestaurant(Restaurant restaurant)
+        {
+            ExecuteCommand(String.Format("Update Restaurant set RestStatus='{1}' where RestId={0}", restaurant.RestId,restaurant.RestStatus));
+        }
+        public bool ExecuteCommand(string queury)
+        {
+            try
+            {
+                using (SqlConnection sqlcon = new SqlConnection(constr))
+                {
+                    sqlcon.Open();
+                    SqlCommand cmd = new SqlCommand(queury, sqlcon);
+                    cmd.ExecuteNonQuery();
+                    sqlcon.Close();
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+                throw;
+            }
+            return true;
+        }
+        public void DeleteRestaurant()
+        {
+            int RestId=0;
+
+            Console.WriteLine("Delet Existing Restarant: ");
+
+            Console.Write("Enter Id of Restaurant: ");
+            RestId = Convert.ToInt32(Console.ReadLine());
+
+            ExecuteCommand(String.Format("Delete from Restaurant where RestId = '{0}'", RestId));
+
+            Console.WriteLine("Restaurant SuccessFully Deleted from RSystem!!!!" + Environment.NewLine);
+        }
+
     }
 }
