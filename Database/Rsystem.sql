@@ -3,7 +3,7 @@ create table Restaurant
 (
 RestId int Primary key,
 RestName varchar(100) not null,
-RestPhoneNo int unique not null,
+RestPhoneNo bigint unique not null,
 RestAdreess varchar(100) not null,
 RestOpeningTime time not null,
 RestClosingTime time not null,
@@ -24,3 +24,5 @@ RestStatus varchar(10) not null
  insert into Restaurant VALUES (1010,'Malvan Tadka Restaurant',1759511891,'Kamothe,Panvel','08:00:00','22:00:00','Indian','Active')
 
   select * from Restaurant
+
+  DROP table Restaurant
